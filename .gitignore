@@ -1,4 +1,4 @@
-a.out
-*.o
-chksum
-boobs
+chksum/chksum.o
+chksum/chksum
+boobs/boobs
+boobs/boobs.o
