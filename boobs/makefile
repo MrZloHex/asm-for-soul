@@ -7,16 +7,23 @@ LL = ld
 
 TARGET = boobs
 
+INC_LIB = print string
+
+LIB_DIR = ../lib
+
+
 all: clean build run
 
 build: $(TARGET)
 
-$(TARGET): $(TARGET).o
-	$(LL) $^ -o $(TARGET)
+$(TARGET): $(TARGET).o libs
+	$(LL) $(wildcard *.o) -o $(TARGET)
 
-$(TARGET).o: $(SRC)
-	$(ASMC) $^ $(ASM_FLAGS) -o $(TARGET).o
+$(TARGET).o:
+	$(ASMC) $(ASM_FLAGS) $(SRC) -o $(TARGET).o
 
+libs:
+	$(foreach lib, $(INC_LIB), $(ASMC) $(ASM_FLAGS) $(LIB_DIR)/$(lib).asm -o $(lib).o;)
 
 run:
 	./$(TARGET)
@@ -24,7 +31,7 @@ run:
 
 clean:
 	-rm -f $(TARGET)
-	-rm -f $(TARGET).o
+	-rm -f *.o
 
 
 

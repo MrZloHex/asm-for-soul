@@ -1,3 +1,5 @@
+		extern 		print
+		extern 		length
 		global 		_start
 		section 	.text
 is_sorted:	push 		rcx
@@ -211,22 +213,6 @@ _print_arr:	mov 		rax, num_str
 
 print_number:	call 		num_to_str
 		call 		print
-		ret
-
-print:		mov		rsi, rax		; Address of string
-		call		length
-		mov		rdx, rax		; Length of string
-		mov		rax, 1			; Syscall number
-		mov		rdi, 1			; File dscrp - STDOUT
-		syscall
-		ret
-
-length:		mov		rbx, rax
-_len_loop:	cmp	  BYTE 	[rax], 0
-		je		_len_exit
-		inc		rax
-		jmp		_len_loop
-_len_exit:	sub		rax, rbx
 		ret
 
 		section 	.bss

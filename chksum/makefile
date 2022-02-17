@@ -3,20 +3,30 @@ CFLAGS = -felf64
 
 LD = ld
 
-target = chksum
+TARGET = chksum
 args = '$$AB 00^'
 
-all: clean compile link run
+INC_LIB = print string
+
+LIB_DIR = ../lib
+
+
+all: clean compile run
 
 run:
-	./$(target) $(args)
+	./$(TARGET) $(args)
 
-compile:
-	$(AC) $(CFLAGS) $(target).asm -o $(target).o
+compile: $(TARGET)
 
-link:
-	$(LD) $(target).o -o $(target)
+$(TARGET).o: $(TARGET).asm
+	$(AC) $(CFLAGS) $(TARGET).asm -o $(TARGET).o
+
+$(TARGET): $(TARGET).o libs 
+	$(LD) $(wildcard *.o) -o $(TARGET)
+
+libs:
+	$(foreach lib, $(INC_LIB), $(AC) $(CFLAGS) $(LIB_DIR)/$(lib).asm -o $(lib).o;)
 
 clean:
-	-rm $(target)
-	-rm $(target).o
+	-rm $(TARGET)
+	-rm *.o
