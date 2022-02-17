@@ -6,7 +6,7 @@ LD = ld
 TARGET = chksum
 args = '$$AB 00^'
 
-INC_LIB = print string
+INC_LIB = print string convert math
 
 LIB_DIR = ../lib
 

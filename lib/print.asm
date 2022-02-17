@@ -1,5 +1,7 @@
 		global 		print
+		global 		print_number
 		extern 		length
+		extern 	 	num_to_str
 
 		section 	.text
 		
@@ -15,4 +17,8 @@ print:		push 		rsi
 		pop 		rdi
 		pop 		rdx
 		pop 		rsi
+		ret
+
+print_number:	call 		num_to_str
+		call 		print
 		ret
