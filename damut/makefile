@@ -1,5 +1,5 @@
 AC = nasm
-CFLAGS = -felf64
+CFLAGS = -felf64 -g
 
 LD = ld
 
