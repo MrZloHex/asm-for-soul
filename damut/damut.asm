@@ -29,11 +29,11 @@ render_loop:	call		render
 render:		call		calc_sc_ab
 		; THETA LOOP
 		mov		rax, theta
-		mov		rbx, 2
+		mov		rbx, 8
 		call		sin_cos
 		; PHI LOOP
 		mov		rax, phi
-		mov		rbx, 3
+		mov		rbx, 12
 		call		sin_cos
 		
 		ret
@@ -43,13 +43,13 @@ calc_sc_ab:	; Calculate sina sinb cosa cosb
 		mov		rbx, 0
 		call		sin_cos
 		mov		rax, B
-		mov		rbx, 1
+		mov		rbx, 4
 		call		sin_cos
 		ret
 
 
 sin_cos:	; RAX - address of var ; RBX - offset of sine and cosine var
-		; push		rcx
+		push		rcx
 		mov		rcx, rbx
 		add		rbx, sine
 		add 		rcx, cosine
@@ -59,7 +59,7 @@ sin_cos:	; RAX - address of var ; RBX - offset of sine and cosine var
 		fld		dword [rax]
 		fcos
 		fst		dword [rcx]
-		; pop		rcx
+		pop		rcx
 		ret
 
 
@@ -79,7 +79,7 @@ render_frame:
 		ret
 
 
-		section   .bss
+; 		section   .bss
 ; sine:
 ; 	sinA:	resd		1
 ; 	sinB:	resd		1
@@ -103,8 +103,6 @@ cosine:
 	cosB:	dd		0
 	cosThe:	dd		0
 	cosPhi:	dd		0
-
-
 
 angles:
 	theta:	dd		0.00
